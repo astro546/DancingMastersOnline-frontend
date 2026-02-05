@@ -1,0 +1,335 @@
+{
+  "menu": {
+    "up": [
+      { "device": "keyboard", "code": "ArrowUp" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_UP",
+        "playstation": "DPAD_UP",
+        "switch": "DPAD_UP",
+        "joycon_l": "DPAD_UP",
+        "joycon_r": "DPAD_UP",
+        "generic": "DPAD_UP"
+      }
+    ],
+    "down": [
+      { "device": "keyboard", "code": "ArrowDown" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_DOWN",
+        "playstation": "DPAD_DOWN",
+        "switch": "DPAD_DOWN",
+        "joycon_l": "DPAD_DOWN",
+        "joycon_r": "DPAD_DOWN",
+        "generic": "DPAD_DOWN"
+      }
+    ],
+    "left": [
+      { "device": "keyboard", "code": "ArrowLeft" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_LEFT",
+        "playstation": "DPAD_LEFT",
+        "switch": "DPAD_LEFT",
+        "joycon_l": "DPAD_LEFT",
+        "joycon_r": "DPAD_LEFT",
+        "generic": "DPAD_LEFT"
+      }
+    ],
+    "right": [
+      { "device": "keyboard", "code": "ArrowRight" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_RIGHT",
+        "playstation": "DPAD_RIGHT",
+        "switch": "DPAD_RIGHT",
+        "joycon_l": "DPAD_RIGHT",
+        "joycon_r": "DPAD_RIGHT",
+        "generic": "DPAD_RIGHT"
+      }
+    ],
+    "start": [
+      { "device": "keyboard", "code": "Enter" },
+      {
+        "device": "gamepad",
+        "xbox": "A",
+        "playstation": "X",
+        "switch": "B",
+        "joycon_l": "B",
+        "joycon_r": "DPAD_DOWN",
+        "generic": "A"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "MENU",
+        "playstation": "OPTIONS",
+        "switch": "PLUS",
+        "joycon_l": "MINUS",
+        "joycon_r": "PLUS",
+        "generic": "START"
+      }
+    ],
+    "exit": [
+      { "device": "keyboard", "code": "BackSpace" },
+      {
+        "device": "gamepad",
+        "xbox": "B",
+        "playstation": "CIRCLE",
+        "switch": "A",
+        "joycon_l": "DPAD_RIGHT",
+        "joycon_r": "A",
+        "generic": "B"
+      }
+    ]
+  },
+
+  "gameplay": {
+    "up": [
+      { "device": "keyboard", "code": "ArrowUp" },
+      { "device": "keyboard", "code": "KeyW" },
+      { "device": "keyboard", "code": "Numpad8" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_UP",
+        "playstation": "DPAD_UP",
+        "switch": "DPAD_UP",
+        "joycon_l": "DPAD_UP",
+        "joycon_r": "X",
+        "generic": "DPAD_UP"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "Y",
+        "playstation": "TRIANGLE",
+        "switch": "X",
+        "generic": "Y"
+      }
+    ],
+    "down": [
+      { "device": "keyboard", "code": "ArrowDown" },
+      { "device": "keyboard", "code": "KeyS" },
+      { "device": "keyboard", "code": "Numpad2" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_DOWN",
+        "playstation": "DPAD_DOWN",
+        "switch": "DPAD_DOWN",
+        "joycon_l": "DPAD_DOWN",
+        "joycon_r": "B",
+        "generic": "DPAD_DOWN"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "A",
+        "playstation": "X",
+        "switch": "B",
+        "generic": "A"
+      }
+    ],
+    "left": [
+      { "device": "keyboard", "code": "ArrowLeft" },
+      { "device": "keyboard", "code": "KeyA" },
+      { "device": "keyboard", "code": "Numpad4" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_LEFT",
+        "playstation": "DPAD_LEFT",
+        "switch": "DPAD_LEFT",
+        "joycon_l": "DPAD_LEFT",
+        "joycon_r": "Y",
+        "generic": "DPAD_LEFT"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "X",
+        "playstation": "SQUARE",
+        "switch": "Y",
+        "generic": "X"
+      }
+    ],
+    "right": [
+      { "device": "keyboard", "code": "ArrowRight" },
+      { "device": "keyboard", "code": "KeyD" },
+      { "device": "keyboard", "code": "Numpad6" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_RIGHT",
+        "playstation": "DPAD_RIGHT",
+        "switch": "DPAD_RIGHT",
+        "joycon_l": "DPAD_RIGHT",
+        "joycon_r": "A",
+        "generic": "DPAD_RIGHT"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "B",
+        "playstation": "CIRCLE",
+        "switch": "A",
+        "generic": "B"
+      }
+    ],
+    "upleft": [
+      { "device": "keyboard", "code": "Mayus" },
+      { "device": "keyboard", "code": "KeyQ" },
+      { "device": "keyboard", "code": "Numpad7" },
+      {
+        "device": "gamepad",
+        "xbox": "LB",
+        "playstation": "L1",
+        "switch": "L",
+        "joycon_l": "SL",
+        "joycon_r": "SL",
+        "generic": "LB"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "LT",
+        "playstation": "L2",
+        "switch": "ZL"
+      }
+    ],
+    "upright": [
+      { "device": "keyboard", "code": "Numpad1" },
+      { "device": "keyboard", "code": "KeyE" },
+      { "device": "keyboard", "code": "Numpad9" },
+      {
+        "device": "gamepad",
+        "xbox": "RB",
+        "playstation": "R1",
+        "switch": "R",
+        "joycon_l": "SR",
+        "joycon_r": "SR",
+        "generic": "RB"
+      },
+      {
+        "device": "gamepad",
+        "xbox": "RT",
+        "playstation": "R2",
+        "switch": "ZR"
+      }
+    ]
+  },
+
+  "edit": {
+    "up": [
+      { "device": "keyboard", "code": "ArrowUp" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_UP",
+        "playstation": "DPAD_UP",
+        "switch": "DPAD_UP",
+        "generic": "BUTTON_12"
+      }
+    ],
+    "down": [
+      { "device": "keyboard", "code": "ArrowDown" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_DOWN",
+        "playstation": "DPAD_DOWN",
+        "switch": "DPAD_DOWN",
+        "generic": "BUTTON_12"
+      }
+    ],
+    "left": [
+      { "device": "keyboard", "code": "ArrowLeft" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_LEFT",
+        "playstation": "DPAD_LEFT",
+        "switch": "DPAD_LEFT",
+        "generic": "BUTTON_12"
+      }
+    ],
+    "right": [
+      { "device": "keyboard", "code": "ArrowRight" },
+      {
+        "device": "gamepad",
+        "xbox": "DPAD_RIGHT",
+        "playstation": "DPAD_RIGHT",
+        "switch": "DPAD_RIGHT",
+        "generic": "BUTTON_12"
+      }
+    ],
+    "setArrowUp": [
+      { "device": "keyboard", "code": "KeyW" },
+      {
+        "device": "gamepad",
+        "xbox": "Y",
+        "playstation": "TRIANGLE",
+        "switch": "X",
+        "generic": "Y"
+      }
+    ],
+    "setArrowDown": [
+      { "device": "keyboard", "code": "KeyS" },
+      {
+        "device": "gamepad",
+        "xbox": "A",
+        "playstation": "X",
+        "switch": "B",
+        "generic": "A"
+      }
+    ],
+    "setArrowLeft": [
+      { "device": "keyboard", "code": "KeyA" },
+      {
+        "device": "gamepad",
+        "xbox": "X",
+        "playstation": "SQUARE",
+        "switch": "Y",
+        "generic": "X"
+      }
+    ],
+    "setArrowRight": [
+      { "device": "keyboard", "code": "KeyD" },
+      {
+        "device": "gamepad",
+        "xbox": "B",
+        "playstation": "CIRCLE",
+        "switch": "A",
+        "generic": "B"
+      }
+    ],
+    "setArrowUpLeft": [
+      { "device": "keyboard", "code": "KeyQ" },
+      {
+        "device": "gamepad",
+        "xbox": "LT",
+        "playstation": "L2",
+        "switch": "ZL",
+        "generic": "LT"
+      }
+    ],
+    "setArrowUpRight": [
+      { "device": "keyboard", "code": "KeyE" },
+      {
+        "device": "gamepad",
+        "xbox": "RT",
+        "playstation": "R2",
+        "switch": "ZR",
+        "generic": "RT"
+      }
+    ],
+    "start": [
+      { "device": "keyboard", "code": "Enter" },
+      {
+        "device": "gamepad",
+        "xbox": "A",
+        "playstation": "X",
+        "switch": "B",
+        "generic": "START"
+      }
+    ],
+    "exit": [
+      { "device": "keyboard", "code": "ArrowLeft" },
+      {
+        "device": "gamepad",
+        "xbox": "B",
+        "playstation": "CIRCLE",
+        "switch": "A",
+        "generic": "SELECT"
+      }
+    ]
+  }
+}
