@@ -4,12 +4,15 @@ import { useEffect } from 'react';
 import { playSound, uiSounds } from '../../_lib/audio/SoundsLibrary';
 import StyleOption from '../options/StyleOption';
 import MenuList from '../MenuList';
+import { useGameContext } from '../../context/GameProvider';
 
 import type { Direction } from '@/app/_lib/input/types';
 import type { MenuOption } from '@/app/_lib/ui/types';
+import type { Style } from '@/app/_lib/game/types';
 
 function SelectStyleScreen() {
   const STYLE_OPTIONS_HREF = '/game/select_mode';
+  const { setStyle } = useGameContext();
 
   const styleOptions: MenuOption[] = [
     {
@@ -38,7 +41,7 @@ function SelectStyleScreen() {
     },
   ];
 
-  const { currentOption, action, clearAction } = useMenuNavigation(
+  const { currentOptions, action, clearAction } = useMenuNavigation(
     (direction: Direction, current: number) => {
       if (direction === 'left') {
         return (current - 1 + 4) % 4;
@@ -50,14 +53,17 @@ function SelectStyleScreen() {
 
       return current;
     },
-    styleOptions
+    styleOptions,
+    'horizontal',
   );
 
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
       playSound(uiSounds.start);
-      router.push(styleOptions[currentOption].href);
+      setStyle(styleOptions[currentOptions[0]].id as Style);
+      console.log('Selected style:', styleOptions[currentOptions[0]].id);
+      router.push(styleOptions[currentOptions[0]].href);
     }
 
     clearAction();
@@ -66,7 +72,7 @@ function SelectStyleScreen() {
   return (
     <MenuList
       options={styleOptions}
-      currentIndex={currentOption}
+      currentIndex={currentOptions[0]}
       styles=''
       renderOption={(option, isActive) => (
         <StyleOption key={option.id} href={option.href} isActive={isActive}>

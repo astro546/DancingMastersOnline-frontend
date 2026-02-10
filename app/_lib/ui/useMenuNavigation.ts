@@ -19,19 +19,38 @@ type OnMoveFn = (direction: Direction, current: number) => number;
  * onMove recibe la direccion del movimiento: 'up', 'down', 'left', 'right'
  */
 /* Sino se sabe el tipo de una variable, se puede obtener con ReturnType */
-export function useMenuNavigation(onMove: OnMoveFn, options: any) {
+type Axis = 'horizontal' | 'vertical' | 'bidirectional';
+
+export function useMenuNavigation(
+  onMove: OnMoveFn,
+  options: any,
+  axis: Axis = 'horizontal',
+) {
   const MOVE_DELAY: number = 150;
   const lastMoveRef = useRef<number>(0);
-  const prevOptionRef = useRef<number | null>(null);
-  const [currentOption, setCurrentOption] = useState(0);
+  const prevOptionsRef = useRef<number[] | null>(null);
+  const [currentOptions, setCurrentOptions] = useState<number[]>([0, 0]);
   const [action, setAction] = useState<MenuAction>(null);
   const inputState = useInputContext();
 
   function moveCurrentOption(direction: Direction, now: number) {
     if (now - lastMoveRef.current > MOVE_DELAY) {
-      setCurrentOption((prev) => {
-        const next = onMove(direction, prev);
-        return next;
+      setCurrentOptions((prev) => {
+        const isVertical =
+          axis === 'vertical' ||
+          (axis === 'bidirectional' &&
+            (direction === 'up' || direction === 'down'));
+
+        const isHorizontal =
+          axis === 'horizontal' ||
+          (axis === 'bidirectional' &&
+            (direction === 'left' || direction === 'right'));
+
+        const axisIndex = isVertical ? 1 : isHorizontal ? 0 : -1;
+        const next = onMove(direction, prev[axisIndex]);
+        const newAxises = [...prev];
+        newAxises[axisIndex] = next;
+        return newAxises;
       });
       lastMoveRef.current = now;
     }
@@ -68,21 +87,24 @@ export function useMenuNavigation(onMove: OnMoveFn, options: any) {
   }, [inputState]);
 
   useEffect(() => {
-    if (prevOptionRef.current === null) {
-      prevOptionRef.current = currentOption;
+    if (prevOptionsRef.current === null) {
+      prevOptionsRef.current = currentOptions;
       return;
     }
 
-    if (prevOptionRef.current !== currentOption) {
+    if (
+      prevOptionsRef.current[0] !== currentOptions[0] ||
+      prevOptionsRef.current[1] !== currentOptions[1]
+    ) {
       playSound(uiSounds.navigate);
-      prevOptionRef.current = currentOption;
+      prevOptionsRef.current = currentOptions;
       return;
     }
-  }, [currentOption]);
+  }, [currentOptions]);
 
   function clearAction() {
     setAction(null);
   }
 
-  return { currentOption, action, clearAction };
+  return { currentOptions, action, clearAction };
 }

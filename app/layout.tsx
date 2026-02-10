@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { InputProvider } from './context/InputProvider';
+import { GameProvider } from './context/GameProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <InputProvider>{children}</InputProvider>
+        <GameProvider>
+          <InputProvider>{children}</InputProvider>
+        </GameProvider>
       </body>
     </html>
   );

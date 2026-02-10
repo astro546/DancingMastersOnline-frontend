@@ -42,7 +42,7 @@ function HomeMenu() {
     },
   ];
 
-  const { currentOption, action, clearAction } = useMenuNavigation(
+  const { currentOptions, action, clearAction } = useMenuNavigation(
     (direction: Direction, current: number) => {
       if (direction === 'up') {
         return (current - 1 + 6) % 6;
@@ -54,14 +54,15 @@ function HomeMenu() {
 
       return current;
     },
-    homeMenuOptions
+    homeMenuOptions,
+    'vertical',
   );
 
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
       playSound(uiSounds.start);
-      router.push(homeMenuOptions[currentOption].href);
+      router.push(homeMenuOptions[currentOptions[1]].href);
     }
 
     clearAction();
@@ -70,7 +71,7 @@ function HomeMenu() {
   return (
     <MenuList
       options={homeMenuOptions}
-      currentIndex={currentOption}
+      currentIndex={currentOptions[1]}
       styles=''
       renderOption={(option, isActive) => (
         <HomeMenuOption key={option.id} href={option.href} isActive={isActive}>

@@ -4,10 +4,15 @@ import { useEffect } from 'react';
 import { playSound, uiSounds } from '../../_lib/audio/SoundsLibrary';
 import ModeOption from '../options/ModeOption';
 import MenuList from '../MenuList';
+import { useGameContext } from '../../context/GameProvider';
+
 import type { Direction } from '@/app/_lib/input/types';
 import type { MenuOption } from '../../_lib/ui/types';
+import type { Mode } from '@/app/_lib/game/types';
 
 function SelectModeScreen() {
+  const { setMode } = useGameContext();
+
   const modeOptions: MenuOption[] = [
     {
       id: 'tutorial',
@@ -19,7 +24,7 @@ function SelectModeScreen() {
       id: 'standard',
       label: 'Standard Mode',
       img: '',
-      href: '/game/select_music/stardard_mode',
+      href: '/game/select_music/standard_mode',
     },
     {
       id: 'course',
@@ -41,7 +46,7 @@ function SelectModeScreen() {
     },
   ];
 
-  const { currentOption, action, clearAction } = useMenuNavigation(
+  const { currentOptions, action, clearAction } = useMenuNavigation(
     (direction: Direction, current: number) => {
       if (direction === 'left') {
         return (current - 1 + 5) % 5;
@@ -53,14 +58,17 @@ function SelectModeScreen() {
 
       return current;
     },
-    modeOptions
+    modeOptions,
+    'horizontal',
   );
 
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
       playSound(uiSounds.start);
-      router.push(modeOptions[currentOption].href);
+      setMode(modeOptions[currentOptions[0]].id as Mode);
+      console.log('Selected mode:', modeOptions[currentOptions[0]].id);
+      router.push(modeOptions[currentOptions[0]].href);
     }
 
     clearAction();
@@ -69,7 +77,7 @@ function SelectModeScreen() {
   return (
     <MenuList
       options={modeOptions}
-      currentIndex={currentOption}
+      currentIndex={currentOptions[0]}
       styles=''
       renderOption={(option, isActive) => (
         <ModeOption key={option.id} href={option.href} isActive={isActive}>

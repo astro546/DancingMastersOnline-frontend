@@ -1,5 +1,6 @@
+import { Style, Mode } from '../game/types';
 export type MenuOption = {
-  id: string;
+  id: Style | Mode | string;
   label: string;
   href: string;
   img?: string;
