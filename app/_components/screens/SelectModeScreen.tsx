@@ -1,7 +1,7 @@
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { playSound, uiSounds } from '../../_lib/audio/SoundsLibrary';
+import { playSound } from '../../_lib/audio/SoundsLibrary';
 import ModeOption from '../options/ModeOption';
 import MenuList from '../MenuList';
 import { useGameContext } from '../../context/GameProvider';
@@ -11,7 +11,7 @@ import type { MenuOption } from '../../_lib/ui/types';
 import type { Mode } from '@/app/_lib/game/types';
 
 function SelectModeScreen() {
-  const { setMode } = useGameContext();
+  const { setMode, setGameState, gameState } = useGameContext();
 
   const modeOptions: MenuOption[] = [
     {
@@ -65,10 +65,13 @@ function SelectModeScreen() {
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
-      playSound(uiSounds.start);
-      setMode(modeOptions[currentOptions[0]].id as Mode);
-      console.log('Selected mode:', modeOptions[currentOptions[0]].id);
-      router.push(modeOptions[currentOptions[0]].href);
+      const selectedMode = modeOptions[currentOptions[0]];
+      playSound('start');
+      setMode(selectedMode.id as Mode);
+      setGameState('select_music');
+      //console.log('Selected mode:', selectedMode.id);
+      //console.log('Current game state:', gameState);
+      router.push(selectedMode.href);
     }
 
     clearAction();

@@ -7,12 +7,13 @@ import {
   SetStateAction,
 } from 'react';
 import { ReactNode } from 'react';
+import { useEffect } from 'react';
+import { fetchSongs } from '../_lib/api/songsApi';
 
-import type { Style, Mode } from '../_lib/game/types';
+import type { Style, Mode, gameState } from '../_lib/game/types';
 
 interface GameContextType {
   songs: any[];
-  setSongs: Dispatch<SetStateAction<any[]>>;
   selectedSong: any | null;
   setSelectedSong: Dispatch<SetStateAction<any | null>>;
   selectedChart: any | null;
@@ -45,11 +46,26 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setScore((prevScore) => prevScore + points);
   };
 
+  useEffect(() => {
+    //console.log('Game state changed:', gameState);
+    if (gameState !== 'select_music') return;
+
+    async function loadSongs() {
+      //console.log('Loading songs for style:', style);
+      setIsLoading(true);
+      const songsData = await fetchSongs(style);
+      setSelectedSong(null);
+      setSongs(songsData);
+      setIsLoading(false);
+    }
+
+    loadSongs();
+  }, [gameState, style]);
+
   return (
     <GameContext.Provider
       value={{
         songs,
-        setSongs,
         selectedSong,
         setSelectedSong,
         selectedChart,

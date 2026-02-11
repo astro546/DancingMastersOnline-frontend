@@ -1,7 +1,7 @@
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { playSound, uiSounds } from '../../_lib/audio/SoundsLibrary';
+import { playSound } from '../../_lib/audio/SoundsLibrary';
 import StyleOption from '../options/StyleOption';
 import MenuList from '../MenuList';
 import { useGameContext } from '../../context/GameProvider';
@@ -60,7 +60,7 @@ function SelectStyleScreen() {
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
-      playSound(uiSounds.start);
+      playSound('start');
       setStyle(styleOptions[currentOptions[0]].id as Style);
       console.log('Selected style:', styleOptions[currentOptions[0]].id);
       router.push(styleOptions[currentOptions[0]].href);

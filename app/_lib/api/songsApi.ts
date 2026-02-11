@@ -5,5 +5,7 @@ export async function fetchSongs(style: Style = 'single') {
   if (!response.ok) {
     throw new Error('Failed to fetch songs');
   }
-  return response.json();
+  const data = await response.json();
+  console.log('Fetched songs:', data);
+  return data;
 }

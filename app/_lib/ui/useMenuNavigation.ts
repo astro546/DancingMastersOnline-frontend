@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useInputContext } from '../../context/InputProvider';
-import { playSound, uiSounds } from '../audio/SoundsLibrary';
+import { playSound } from '../audio/SoundsLibrary';
 import type { Direction } from '../input/types';
 import type { MenuAction } from './types';
 
@@ -96,7 +96,7 @@ export function useMenuNavigation(
       prevOptionsRef.current[0] !== currentOptions[0] ||
       prevOptionsRef.current[1] !== currentOptions[1]
     ) {
-      playSound(uiSounds.navigate);
+      playSound('navigate');
       prevOptionsRef.current = currentOptions;
       return;
     }

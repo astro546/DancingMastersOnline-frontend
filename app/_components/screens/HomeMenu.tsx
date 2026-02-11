@@ -1,7 +1,7 @@
 import HomeMenuOption from '../options/HomeMenuOption';
 import MenuList from '../MenuList';
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
-import { uiSounds, playSound } from '@/app/_lib/audio/SoundsLibrary';
+import { playSound } from '@/app/_lib/audio/SoundsLibrary';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -61,7 +61,7 @@ function HomeMenu() {
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
-      playSound(uiSounds.start);
+      playSound('start');
       router.push(homeMenuOptions[currentOptions[1]].href);
     }
 

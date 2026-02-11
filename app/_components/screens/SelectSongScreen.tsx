@@ -1,25 +1,20 @@
-'use client';
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { playSound, uiSounds } from '../../_lib/audio/SoundsLibrary';
+import { use, useEffect } from 'react';
+import { playSound } from '../../_lib/audio/SoundsLibrary';
 import { useGameContext } from '../../context/GameProvider';
-import { fetchSongs } from '@/app/_lib/api/songsApi';
 
 import type { Direction } from '@/app/_lib/input/types';
 
-async function SelectSongScreen() {
+function SelectSongScreen() {
   const {
     songs,
-    setSongs,
     setSelectedChart,
     setSelectedSong,
     setGameState,
     style,
     mode,
   } = useGameContext();
-  const songsData = await fetchSongs(style);
-  setSongs(songsData);
   const numSongs = songs.length;
 
   const { currentOptions, action, clearAction } = useMenuNavigation(
@@ -49,14 +44,19 @@ async function SelectSongScreen() {
     'bidirectional',
   );
 
+  useEffect(() => {
+    setGameState('select_music');
+  }, []);
+
   const router = useRouter();
   useEffect(() => {
+    console.log(songs);
     const songId = songs[currentOptions[0]].id;
     const chart = songs[currentOptions[0]].charts[currentOptions[1]];
     const difficulty = chart.difficulty;
 
     if (action === 'start') {
-      playSound(uiSounds.start);
+      playSound('start');
       setSelectedSong(songId);
       setSelectedChart(songs[currentOptions[0]].charts[currentOptions[1]]);
       setGameState('playing');
@@ -69,7 +69,7 @@ async function SelectSongScreen() {
   return (
     <div>
       <h1>Select Song</h1>
-      {songs.map((song, index) => (
+      {/* {songs.map((song, index) => (
         <div
           key={song.id}
           style={{
@@ -78,7 +78,7 @@ async function SelectSongScreen() {
         >
           {song.title}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

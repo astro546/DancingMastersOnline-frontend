@@ -1,9 +1,8 @@
-import { useMenuNavigation } from '@/app/_lib/ui/useMenuNavigation';
-import { playSound, uiSounds } from '@/app/_lib/audio/SoundsLibrary';
+'use client';
 import SelectSongScreen from '@/app/_components/screens/SelectSongScreen';
 
-function page() {
+function Page() {
   return <SelectSongScreen />;
 }
 
-export default page;
+export default Page;
