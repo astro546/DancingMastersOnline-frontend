@@ -62,10 +62,9 @@ function HomeMenu() {
   useEffect(() => {
     if (action === 'start') {
       playSound('start');
+      clearAction();
       router.push(homeMenuOptions[currentOptions[1]].href);
     }
-
-    clearAction();
   }, [action]);
 
   return (

@@ -69,12 +69,11 @@ function SelectModeScreen() {
       playSound('start');
       setMode(selectedMode.id as Mode);
       setGameState('select_music');
+      clearAction();
+      router.push(selectedMode.href);
       //console.log('Selected mode:', selectedMode.id);
       //console.log('Current game state:', gameState);
-      router.push(selectedMode.href);
     }
-
-    clearAction();
   }, [action]);
 
   return (

@@ -1,8 +1,9 @@
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 import { playSound } from '../../_lib/audio/SoundsLibrary';
 import { useGameContext } from '../../context/GameProvider';
+import { useSongPreview } from '@/app/_lib/audio/songsPlayer';
 
 import type { Direction } from '@/app/_lib/input/types';
 
@@ -48,17 +49,18 @@ function SelectSongScreen() {
     setGameState('select_music');
   }, []);
 
+  const currentSong = songs[currentOptions[0]];
   const router = useRouter();
   useEffect(() => {
     console.log(songs);
-    const songId = songs[currentOptions[0]].id;
-    const chart = songs[currentOptions[0]].charts[currentOptions[1]];
-    const difficulty = chart.difficulty;
+    const songId = currentSong.id;
+    const currentChart = currentSong.charts[currentOptions[1]];
+    const difficulty = currentChart.difficulty;
 
     if (action === 'start') {
       playSound('start');
       setSelectedSong(songId);
-      setSelectedChart(songs[currentOptions[0]].charts[currentOptions[1]]);
+      setSelectedChart(currentChart);
       setGameState('playing');
       router.push(`/play/${mode}/${songId}/${style}/${difficulty}`);
     }
@@ -66,10 +68,12 @@ function SelectSongScreen() {
     clearAction();
   }, [action]);
 
+  useSongPreview(currentSong);
+
   return (
     <div>
       <h1>Select Song</h1>
-      {/* {songs.map((song, index) => (
+      {songs.map((song, index) => (
         <div
           key={song.id}
           style={{
@@ -78,7 +82,7 @@ function SelectSongScreen() {
         >
           {song.title}
         </div>
-      ))} */}
+      ))}
     </div>
   );
 }

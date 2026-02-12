@@ -63,10 +63,9 @@ function SelectStyleScreen() {
       playSound('start');
       setStyle(styleOptions[currentOptions[0]].id as Style);
       console.log('Selected style:', styleOptions[currentOptions[0]].id);
+      clearAction();
       router.push(styleOptions[currentOptions[0]].href);
     }
-
-    clearAction();
   }, [action]);
 
   return (
