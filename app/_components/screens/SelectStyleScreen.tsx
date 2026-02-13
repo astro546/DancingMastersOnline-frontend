@@ -60,9 +60,10 @@ function SelectStyleScreen() {
   const router = useRouter();
   useEffect(() => {
     if (action === 'start') {
+      const selectedStyle = styleOptions[currentOptions[0]].id as Style;
       playSound('start');
-      setStyle(styleOptions[currentOptions[0]].id as Style);
-      console.log('Selected style:', styleOptions[currentOptions[0]].id);
+      setStyle(selectedStyle);
+      /* console.log('Selected style:', styleOptions[currentOptions[0]].id); */
       clearAction();
       router.push(styleOptions[currentOptions[0]].href);
     }

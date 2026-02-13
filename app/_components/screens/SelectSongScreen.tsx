@@ -1,3 +1,4 @@
+'use client';
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -53,6 +54,8 @@ function SelectSongScreen() {
   const router = useRouter();
   useEffect(() => {
     console.log(songs);
+    if (!currentSong) return;
+
     const songId = currentSong.id;
     const currentChart = currentSong.charts[currentOptions[1]];
     const difficulty = currentChart.difficulty;
@@ -61,6 +64,9 @@ function SelectSongScreen() {
       playSound('start');
       setSelectedSong(songId);
       setSelectedChart(currentChart);
+      localStorage.setItem('selectedSong', songId);
+      localStorage.setItem('selectedChart', JSON.stringify(currentChart));
+
       setGameState('playing');
       router.push(`/play/${mode}/${songId}/${style}/${difficulty}`);
     }

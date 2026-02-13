@@ -50,17 +50,44 @@ export function GameProvider({ children }: { children: ReactNode }) {
     //console.log('Game state changed:', gameState);
     if (gameState !== 'select_music') return;
 
+    const willGetCachedSongs = () => {
+      const cachedSongs = localStorage.getItem('cachedSongs');
+      const cachedStyle = localStorage.getItem('cachedStyle');
+      const cachedMode = localStorage.getItem('cachedMode');
+
+      const isSameStyle = cachedStyle && cachedStyle === style;
+      const isSameMode = cachedMode && cachedMode === mode;
+
+      return (
+        cachedSongs &&
+        isSameStyle &&
+        isSameMode &&
+        JSON.parse(cachedSongs).length > 0
+      );
+    };
+
     async function loadSongs() {
       //console.log('Loading songs for style:', style);
       setIsLoading(true);
-      const songsData = await fetchSongs(style);
+
+      let songsData = [];
+      if (willGetCachedSongs()) {
+        const cachedSongs = localStorage.getItem('cachedSongs');
+        songsData = cachedSongs ? JSON.parse(cachedSongs) : [];
+      } else {
+        songsData = await fetchSongs(style);
+        localStorage.setItem('cachedSongs', JSON.stringify(songsData));
+        localStorage.setItem('cachedStyle', style);
+        localStorage.setItem('cachedMode', mode);
+      }
       setSelectedSong(null);
       setSongs(songsData);
+
       setIsLoading(false);
     }
 
     loadSongs();
-  }, [gameState, style]);
+  }, [gameState, style, mode]);
 
   return (
     <GameContext.Provider

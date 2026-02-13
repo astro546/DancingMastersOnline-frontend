@@ -1,5 +1,6 @@
 import { API_URL } from '../constants';
 import { useEffect, useRef } from 'react';
+import { audioCache } from './SoundsLibrary';
 
 /**
  * playSample: Reproduce un fragmento de la canción para que el usuario pueda escucharla antes de seleccionarla.
@@ -14,6 +15,8 @@ export function useSongPreview(song: any, isPlaying: boolean = true) {
   const INTERVAL_MS = 50;
 
   useEffect(() => {
+    if (!song) return;
+
     /* Se limpia el audio anterior */
     if (audioRef.current) {
       audioRef.current.pause();
@@ -60,38 +63,50 @@ export function useSongPreview(song: any, isPlaying: boolean = true) {
 
       const currentTime = audio.currentTime;
 
-      /* Verificamos si ya se termino el sample para reiniciarlo */
-      if (currentTime >= endTime) {
+      /* Veriuficamos si el sonido de navegacion ya termino de reproducirse */
+      const isNavigateSoundPlaying =
+        audioCache['navigate'] && !audioCache['navigate'].paused;
+
+      /* Si se esta reproduciendo, pausamos y reiniciamos el sample */
+      if (isNavigateSoundPlaying) {
+        if (!audio.paused) {
+          audio.pause();
+          audio.currentTime = start;
+        }
+        return;
+      }
+
+      /* Si estaba pausado, lo volvemos a reproducir */
+      if (audio.paused) {
         audio.currentTime = start;
         audio.volume = 1;
-        audio.play();
+        audio.play().catch(() => {}); // Ignoramos errores de promesa
+      }
 
-        /* Sino es asi, entonces vemos si ya se va a terminar el sample para hacer el fade out  */
-      } else if (currentTime >= fadeOutStart) {
-        const timeRemaining = endTime - currentTime;
-        let newVolume = timeRemaining / FADE_OUT_DURATION;
-        // Limites de seguridad (0 a 1)
-        if (newVolume < 0) newVolume = 0;
-        if (newVolume > 1) newVolume = 1;
-        audio.volume = newVolume;
+      if (!isNavigateSoundPlaying) {
+        /* Verificamos si ya se termino el sample para reiniciarlo */
+        if (currentTime >= endTime) {
+          audio.currentTime = start;
+          audio.volume = 1;
+          audio.play();
 
-        /* Si el sample todavia no termina, dejamos el volumen en 1 */
-      } else {
-        if (audio.volume !== 1) audio.volume = 1;
+          /* Sino es asi, entonces vemos si ya se va a terminar el sample para hacer el fade out  */
+        } else if (currentTime >= fadeOutStart) {
+          const timeRemaining = endTime - currentTime;
+          let newVolume = timeRemaining / FADE_OUT_DURATION;
+          // Limites de seguridad (0 a 1)
+          if (newVolume < 0) newVolume = 0;
+          if (newVolume > 1) newVolume = 1;
+          audio.volume = newVolume;
+
+          /* Si el sample todavia no termina, dejamos el volumen en 1 */
+        } else {
+          if (audio.volume !== 1) audio.volume = 1;
+        }
       }
     }, INTERVAL_MS);
 
-    /* const handleTimeUpdate = () => {
-      if (audio.currentTime >= endTime) {
-        //audio.pause();
-        audio.currentTime = start;
-        audio.play();
-      }
-    };
-    audio.addEventListener('timeupdate', handleTimeUpdate); */
-
     return () => {
-      /* audio.removeEventListener('timeupdate', handleTimeUpdate); */
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       audio.pause();
       audio.src = '';

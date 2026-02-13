@@ -6,13 +6,7 @@ const soundPaths = {
   navigate: '/sounds/ui/MusicWheel change.ogg',
 };
 
-const audioCache: Record<string, HTMLAudioElement> = {};
-
-/* const uiSounds: Record<string, HTMLAudioElement> = {
-  start: new Audio('/sounds/ui/Common start.ogg'),
-  cancel: new Audio('/sounds/ui/Common cancel.ogg'),
-  navigate: new Audio('/sounds/ui/MusicWheel change.ogg'),
-}; */
+export const audioCache: Record<string, HTMLAudioElement> = {};
 
 export function playSound(key: keyof typeof soundPaths) {
   if (typeof window === 'undefined') return;
