@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { playSound } from '../../_lib/audio/SoundsLibrary';
 import { useGameContext } from '../../context/GameProvider';
 import { useSongPreview } from '@/app/_lib/audio/songsPlayer';
+import Img from 'next/image';
+import { API_URL } from '@/app/_lib/constants';
 
 import type { Direction } from '@/app/_lib/input/types';
 
@@ -76,19 +78,57 @@ function SelectSongScreen() {
 
   useSongPreview(currentSong);
 
+  if (!currentSong) {
+    return (
+      <div className='flex h-screen items-center justify-center bg-black text-white'>
+        Cargando canciones...
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>Select Song</h1>
-      {songs.map((song, index) => (
-        <div
-          key={song.id}
-          style={{
-            fontWeight: currentOptions[0] === index ? 'bold' : 'normal',
-          }}
-        >
-          {song.title}
-        </div>
-      ))}
+    <div className='grid grid-cols-2 gap-4'>
+      <div className='col-span-2 row-span-2 row-start-1 col-start-1'>
+        <h1>Select Song</h1>
+        {songs.map((song, index) => (
+          <div
+            key={song.id}
+            style={{
+              fontWeight: currentOptions[0] === index ? 'bold' : 'normal',
+            }}
+          >
+            {song.title}
+          </div>
+        ))}
+      </div>
+      <div className='col-start-2 row-start-1 flex flex-col items-center'>
+        <Img
+          src={`${API_URL}/content/${currentSong.folder}/${currentSong.bannerImg}`}
+          alt={currentSong.title}
+          width={500}
+          height={150}
+        />
+
+        <ul>
+          {currentSong.charts.map((chart: any, index: number) => (
+            <li
+              key={index}
+              style={{
+                fontWeight: currentOptions[1] === index ? 'bold' : 'normal',
+              }}
+            >
+              {chart.difficulty}: {chart.level}
+            </li>
+          ))}
+        </ul>
+        {/* <ul>
+          <li>Radar Stream: {currentSong.charts}</li>
+          <li>Radar Voltage: {currentSong.charts}</li>
+          <li>Radar Air: {currentSong.charts}</li>
+          <li>Radar Freeze: {currentSong.charts}</li>
+          <li>Radar Chaos: {currentSong.charts}</li>
+        </ul> */}
+      </div>
     </div>
   );
 }

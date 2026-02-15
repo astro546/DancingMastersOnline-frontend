@@ -1,4 +1,9 @@
-export type Style = 'single' | 'double' | 'versus' | 'solo';
+export type Style =
+  | 'dance-single'
+  | 'dance-double'
+  | 'dance-versus'
+  | 'dance-couple'
+  | 'dance-solo';
 export type Mode = 'tutorial' | 'standard' | 'course' | 'endless' | 'battle';
 export type gameState =
   | 'menu'

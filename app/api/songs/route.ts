@@ -4,7 +4,9 @@ import { API_URL } from '../../_lib/constants';
 
 export async function GET(request: NextRequest) {
   try {
-    const res = await fetch(`${API_URL}/songs`);
+    const searchParams = request.nextUrl.searchParams;
+    const style = searchParams.get('style') || 'dance-single';
+    const res = await fetch(`${API_URL}/songs?style=${style}`);
     const data = await res.json();
     return NextResponse.json(data);
   } catch (error) {

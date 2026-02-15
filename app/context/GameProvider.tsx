@@ -38,7 +38,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [selectedChart, setSelectedChart] = useState(null);
   const [gameState, setGameState] = useState('menu');
   const [score, setScore] = useState(0);
-  const [style, setStyle] = useState<Style>('single');
+  const [style, setStyle] = useState<Style>('dance-single');
   const [mode, setMode] = useState<Mode>('standard');
   const [isLoading, setIsLoading] = useState(false);
 
