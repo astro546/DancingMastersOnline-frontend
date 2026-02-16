@@ -60,7 +60,7 @@ function SelectSongScreen() {
 
     const songId = currentSong.id;
     const currentChart = currentSong.charts[currentOptions[1]];
-    const difficulty = currentChart.difficulty;
+    const difficulty = currentChart?.difficulty || 0;
 
     if (action === 'start') {
       playSound('start');
@@ -85,6 +85,8 @@ function SelectSongScreen() {
       </div>
     );
   }
+
+  const currentChart = currentSong.charts[currentOptions[1]] || null;
 
   return (
     <div className='grid grid-cols-2 gap-4'>
@@ -121,13 +123,13 @@ function SelectSongScreen() {
             </li>
           ))}
         </ul>
-        {/* <ul>
-          <li>Radar Stream: {currentSong.charts}</li>
-          <li>Radar Voltage: {currentSong.charts}</li>
-          <li>Radar Air: {currentSong.charts}</li>
-          <li>Radar Freeze: {currentSong.charts}</li>
-          <li>Radar Chaos: {currentSong.charts}</li>
-        </ul> */}
+        <ul>
+          <li>Radar Stream: {currentChart?.radarStream || 0}</li>
+          <li>Radar Voltage: {currentChart?.radarVoltage || 0}</li>
+          <li>Radar Air: {currentChart?.radarAir || 0}</li>
+          <li>Radar Freeze: {currentChart?.radarFreeze || 0}</li>
+          <li>Radar Chaos: {currentChart?.radarChaos || 0}</li>
+        </ul>
       </div>
     </div>
   );
