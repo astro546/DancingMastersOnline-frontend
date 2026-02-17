@@ -9,6 +9,7 @@ import Img from 'next/image';
 import { API_URL } from '@/app/_lib/constants';
 
 import type { Direction } from '@/app/_lib/input/types';
+import BPMDisplayer from '../selectSongComponents/BPMDisplayer';
 
 function SelectSongScreen() {
   const {
@@ -59,7 +60,7 @@ function SelectSongScreen() {
     if (!currentSong) return;
 
     const songId = currentSong.id;
-    const currentChart = currentSong.charts[currentOptions[1]];
+    const currentChart = currentSong?.charts[currentOptions[1]];
     const difficulty = currentChart?.difficulty || 0;
 
     if (action === 'start') {
@@ -86,7 +87,7 @@ function SelectSongScreen() {
     );
   }
 
-  const currentChart = currentSong.charts[currentOptions[1]] || null;
+  const currentChart = currentSong.charts[currentOptions[1]] || null || 0;
 
   return (
     <div className='grid grid-cols-2 gap-4'>
@@ -124,12 +125,13 @@ function SelectSongScreen() {
           ))}
         </ul>
         <ul>
-          <li>Radar Stream: {currentChart?.radarStream || 0}</li>
-          <li>Radar Voltage: {currentChart?.radarVoltage || 0}</li>
-          <li>Radar Air: {currentChart?.radarAir || 0}</li>
-          <li>Radar Freeze: {currentChart?.radarFreeze || 0}</li>
-          <li>Radar Chaos: {currentChart?.radarChaos || 0}</li>
+          <li>Radar Stream: {currentChart.radarStream || 0}</li>
+          <li>Radar Voltage: {currentChart.radarVoltage || 0}</li>
+          <li>Radar Air: {currentChart.radarAir || 0}</li>
+          <li>Radar Freeze: {currentChart.radarFreeze || 0}</li>
+          <li>Radar Chaos: {currentChart.radarChaos || 0}</li>
         </ul>
+        <BPMDisplayer bpms={currentSong.bpms} />
       </div>
     </div>
   );

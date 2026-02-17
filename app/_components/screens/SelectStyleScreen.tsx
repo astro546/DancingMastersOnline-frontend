@@ -16,25 +16,25 @@ function SelectStyleScreen() {
 
   const styleOptions: MenuOption[] = [
     {
-      id: 'single',
+      id: 'dance-single',
       label: 'Single',
       img: '',
       href: STYLE_OPTIONS_HREF,
     },
     {
-      id: 'double',
+      id: 'dance-double',
       label: 'Double',
       img: '',
       href: STYLE_OPTIONS_HREF,
     },
     {
-      id: 'versus',
+      id: 'dance-versus',
       label: 'Versus',
       img: '',
       href: STYLE_OPTIONS_HREF,
     },
     {
-      id: 'solo',
+      id: 'dance-solo',
       label: 'Solo (6 Panels)',
       img: '',
       href: STYLE_OPTIONS_HREF,
