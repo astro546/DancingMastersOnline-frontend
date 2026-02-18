@@ -1,7 +1,7 @@
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { playSound } from '../../_lib/audio/SoundsLibrary';
+import { playSound } from '@/app/_lib/audio/songsPlayer';
 import ModeOption from '../options/ModeOption';
 import MenuList from '../MenuList';
 import { useGameContext } from '../../context/GameProvider';

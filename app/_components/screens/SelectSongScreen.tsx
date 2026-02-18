@@ -2,7 +2,7 @@
 import { useMenuNavigation } from '../../_lib/ui/useMenuNavigation';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { playSound } from '../../_lib/audio/SoundsLibrary';
+import { playSound } from '@/app/_lib/audio/songsPlayer';
 import { useGameContext } from '../../context/GameProvider';
 import { useSongPreview } from '@/app/_lib/audio/songsPlayer';
 import Img from 'next/image';
@@ -10,6 +10,7 @@ import { API_URL } from '@/app/_lib/constants';
 
 import type { Direction } from '@/app/_lib/input/types';
 import BPMDisplayer from '../selectSongComponents/BPMDisplayer';
+import SelectDifficultList from '../selectSongComponents/SelectDifficultList';
 
 function SelectSongScreen() {
   const {
@@ -25,7 +26,6 @@ function SelectSongScreen() {
   const { currentOptions, action, clearAction } = useMenuNavigation(
     (direction: Direction, current: number) => {
       const currentSong = songs[current];
-      const chartsCount = currentSong.charts.length;
 
       if (direction === 'left') {
         return (current - 1 + numSongs) % numSongs;
@@ -35,18 +35,19 @@ function SelectSongScreen() {
         return (current + 1) % numSongs;
       }
 
-      if (direction === 'up') {
+      /* if (direction === 'up') {
         return (current - 1 + chartsCount) % chartsCount;
       }
 
       if (direction === 'down') {
         return (current + 1) % chartsCount;
-      }
+      } */
 
       return current;
     },
     songs,
-    'bidirectional',
+    'horizontal',
+    'selectMusic',
   );
 
   useEffect(() => {
@@ -112,18 +113,7 @@ function SelectSongScreen() {
           height={150}
         />
 
-        <ul>
-          {currentSong.charts.map((chart: any, index: number) => (
-            <li
-              key={index}
-              style={{
-                fontWeight: currentOptions[1] === index ? 'bold' : 'normal',
-              }}
-            >
-              {chart.difficulty}: {chart.level}
-            </li>
-          ))}
-        </ul>
+        <SelectDifficultList charts={currentSong.charts} />
         <ul>
           <li>Radar Stream: {currentChart.radarStream || 0}</li>
           <li>Radar Voltage: {currentChart.radarVoltage || 0}</li>

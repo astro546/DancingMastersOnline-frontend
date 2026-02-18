@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { useInputContext } from '../../context/InputProvider';
-import { playSound } from '../audio/SoundsLibrary';
+import { playSound } from '../audio/songsPlayer';
 import type { Direction } from '../input/types';
 import type { MenuAction } from './types';
+import type { SoundKey } from '../audio/SoundsLibrary';
 
 /* El tipo de funcion que se debe de pasar al hook, debe de cumplir con lo siguiente:
   * Entradas: Direccion del boton que se acciono.
@@ -25,6 +26,7 @@ export function useMenuNavigation(
   onMove: OnMoveFn,
   options: any,
   axis: Axis = 'horizontal',
+  sound: SoundKey = 'navigate',
 ) {
   const MOVE_DELAY: number = 150;
   const lastMoveRef = useRef<number>(0);
@@ -96,7 +98,7 @@ export function useMenuNavigation(
       prevOptionsRef.current[0] !== currentOptions[0] ||
       prevOptionsRef.current[1] !== currentOptions[1]
     ) {
-      playSound('navigate');
+      playSound(sound);
       prevOptionsRef.current = currentOptions;
       return;
     }

@@ -1,6 +1,26 @@
 import { API_URL } from '../constants';
 import { useEffect, useRef } from 'react';
-import { audioCache } from './SoundsLibrary';
+import { soundPaths } from './SoundsLibrary';
+
+import type { SoundKey } from './SoundsLibrary';
+
+export const audioCache: Record<string, HTMLAudioElement> = {};
+
+export function playSound(key: SoundKey) {
+  if (typeof window === 'undefined') return;
+
+  if (!audioCache[key]) {
+    audioCache[key] = new Audio(soundPaths[key]);
+    audioCache[key].volume = 0.5;
+  }
+
+  const sound = audioCache[key];
+
+  sound.currentTime = 0;
+  sound.play().catch((err) => {
+    console.warn('El navegador bloqueó el autoplay:', err);
+  });
+}
 
 /**
  * playSample: Reproduce un fragmento de la canción para que el usuario pueda escucharla antes de seleccionarla.
@@ -65,7 +85,7 @@ export function useSongPreview(song: any, isPlaying: boolean = true) {
 
       /* Veriuficamos si el sonido de navegacion ya termino de reproducirse */
       const isNavigateSoundPlaying =
-        audioCache['navigate'] && !audioCache['navigate'].paused;
+        audioCache['selectMusic'] && !audioCache['selectMusic'].paused;
 
       /* Si se esta reproduciendo, pausamos y reiniciamos el sample */
       if (isNavigateSoundPlaying) {
@@ -113,5 +133,3 @@ export function useSongPreview(song: any, isPlaying: boolean = true) {
     };
   }, [song, isPlaying]);
 }
-
-export function playSong(soundName: string) {}
